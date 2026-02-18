@@ -24,17 +24,6 @@ application {
 
 dependencies {
     implementation project(path: ':luajava', configuration: 'instrumentedJars')
-    implementation project(path: ':lua51', configuration: 'instrumentedJars')
-    implementation project(path: ':lua52', configuration: 'instrumentedJars')
-    implementation project(path: ':lua53', configuration: 'instrumentedJars')
-    implementation project(path: ':lua54', configuration: 'instrumentedJars')
-    implementation project(path: ':lua55', configuration: 'instrumentedJars')
-    implementation project(path: ':luajit', configuration: 'instrumentedJars')
-    implementation project(':luaj')
-    runtimeOnly project(path: ':lua51', configuration: 'desktopNatives')
-    runtimeOnly project(path: ':lua52', configuration: 'desktopNatives')
-    runtimeOnly project(path: ':lua53', configuration: 'desktopNatives')
-    runtimeOnly project(path: ':lua54', configuration: 'desktopNatives')
-    runtimeOnly project(path: ':lua55', configuration: 'desktopNatives')
-    runtimeOnly project(path: ':luajit', configuration: 'desktopNatives')
+    implementation project(path: ':luajit-lua5.5', configuration: 'instrumentedJars')
+    runtimeOnly project(path: ':luajit-lua5.5', configuration: 'desktopNatives')
 }

@@ -1,9 +1,9 @@
 package party.iroiro.luajava.docs;
+import party.iroiro.luajava.luajit.LuaJit;
 
 import org.junit.jupiter.api.Test;
 import party.iroiro.luajava.ClassPathLoader;
 import party.iroiro.luajava.Lua;
-import party.iroiro.luajava.lua51.Lua51;
 import party.iroiro.luajava.value.LuaValue;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -13,7 +13,7 @@ public class ModuleSnippetTest {
     @Test
     public void classPathLoaderTest() {
 // #region classPathLoaderTest
-try (Lua L = new Lua51()) {
+try (Lua L = new LuaJit()) {
     L.openLibrary("package");
     L.setExternalLoader(new ClassPathLoader());
     // Lua#require is equivalent to `require` in Lua.
@@ -26,7 +26,7 @@ try (Lua L = new Lua51()) {
     @Test
     public void javaSideModuleTest() {
 // #region javaSideModuleTest
-try (Lua L = new Lua51()) {
+try (Lua L = new LuaJit()) {
     L.openLibrary("package");
     L.run("local LuaLib = require('party.iroiro.luajava.docs.JavaSideExampleModule.open');" +
     "assert(1024 == LuaLib.getNumber())");

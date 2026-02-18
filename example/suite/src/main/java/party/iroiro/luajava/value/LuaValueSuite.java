@@ -3,7 +3,7 @@ package party.iroiro.luajava.value;
 import org.jspecify.annotations.NonNull;
 import party.iroiro.luajava.Lua;
 import party.iroiro.luajava.LuaException;
-import party.iroiro.luajava.lua51.Lua51;
+import party.iroiro.luajava.luajit.LuaJit;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
@@ -32,7 +32,7 @@ public class LuaValueSuite<T extends Lua> {
         L.pop(1);
         equalityTest(J);
         assertEquals(0, L.getTop());
-        try (Lua K = new Lua51()) {
+        try (Lua K = new LuaJit()) {
             equalityTest(K);
         }
         assertEquals(0, L.getTop());
@@ -246,7 +246,7 @@ public class LuaValueSuite<T extends Lua> {
     }
 
     private void differentThreadTest() {
-        try (Lua K = new Lua51()) {
+        try (Lua K = new LuaJit()) {
             L.pushNil();
             K.pushNil();
             assertThrows(UnsupportedOperationException.class, () -> L.get().get(K.get()));
@@ -275,7 +275,7 @@ public class LuaValueSuite<T extends Lua> {
         value.push(L);
         assertTrue(L.equal(-1, -2));
         L.pop(2);
-        try (Lua K = new Lua51()) {
+        try (Lua K = new LuaJit()) {
             assertThrowsLua(LuaException.LuaError.MEMORY, () -> value.push(K),
                     "Unable to pass Lua values between different Lua states");
         }

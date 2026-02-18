@@ -3,11 +3,6 @@ package party.iroiro.luajava;
 import org.jspecify.annotations.NonNull;
 import party.iroiro.luajava.interfaces.LuaTestConsumer;
 import party.iroiro.luajava.interfaces.LuaTestSupplier;
-import party.iroiro.luajava.lua51.Lua51Natives;
-import party.iroiro.luajava.lua52.Lua52Natives;
-import party.iroiro.luajava.lua53.Lua53Natives;
-import party.iroiro.luajava.lua54.Lua54Natives;
-import party.iroiro.luajava.lua55.Lua55Natives;
 import party.iroiro.luajava.luajit.LuaJitNatives;
 
 import java.io.IOException;
@@ -78,17 +73,7 @@ public class LuaScriptSuite<T extends AbstractLua> {
                 L.push(new OtherTypes(), Lua.Conversion.NONE);
                 L.setGlobal("others");
                 LuaNatives C = L.getLuaNatives();
-                if (C instanceof Lua51Natives) {
-                    ((Lua51Natives) C).lua_newuserdata(L.getPointer(), 1024);
-                } else if (C instanceof Lua52Natives) {
-                    ((Lua52Natives) C).lua_newuserdata(L.getPointer(), 1024);
-                } else if (C instanceof Lua53Natives) {
-                    ((Lua53Natives) C).lua_newuserdata(L.getPointer(), 1024);
-                } else if (C instanceof Lua54Natives) {
-                    ((Lua54Natives) C).lua_newuserdatauv(L.getPointer(), 1024, 0);
-                } else if (C instanceof Lua55Natives) {
-                    ((Lua55Natives) C).lua_newuserdatauv(L.getPointer(), 1024, 0);
-                } else if (C instanceof LuaJitNatives) {
+                if (C instanceof LuaJitNatives) {
                     ((LuaJitNatives) C).lua_newuserdata(L.getPointer(), 1024);
                 } else if (C.getClass().getName().endsWith("LuaJNatives")) {
                     // This is tested instead in NativesTest,

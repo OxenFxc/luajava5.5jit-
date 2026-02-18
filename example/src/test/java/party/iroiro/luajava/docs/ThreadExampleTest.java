@@ -1,13 +1,12 @@
 package party.iroiro.luajava.docs;
+import party.iroiro.luajava.luajit.LuaJit;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 import party.iroiro.luajava.Lua;
-import party.iroiro.luajava.lua54.Lua54;
-import party.iroiro.luajava.luajit.LuaJit;
 
 public class ThreadExampleTest {
-    private static final Lua L = new Lua54();
+    private static final Lua L = new LuaJit();
 
     @AfterAll
     public static void end() {

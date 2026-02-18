@@ -3,7 +3,7 @@ package party.iroiro.luajava;
 import org.jspecify.annotations.NonNull;
 import party.iroiro.luajava.LuaException.LuaError;
 import party.iroiro.luajava.interfaces.*;
-import party.iroiro.luajava.lua51.Lua51;
+import party.iroiro.luajava.luajit.LuaJit;
 import party.iroiro.luajava.value.LuaFunction;
 import party.iroiro.luajava.value.LuaValue;
 
@@ -830,7 +830,7 @@ public class LuaTestSuite<T extends AbstractLua> {
         L.push(objectEnumeration, Lua.Conversion.NONE);
         L.xMove(sub, 1);
 
-        assertThrows(IllegalArgumentException.class, () -> L.xMove(new Lua51(), 1));
+        assertThrows(IllegalArgumentException.class, () -> L.xMove(new LuaJit(), 1));
         L.run("return {}");
         Lua proxy = (Lua) L.createProxy(new Class[]{Lua.class}, SEMI);
         assertThrows(IllegalArgumentException.class, () -> L.xMove(proxy, 1));

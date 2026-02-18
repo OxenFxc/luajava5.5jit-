@@ -1,7 +1,7 @@
 package party.iroiro.luajava;
+import party.iroiro.luajava.luajit.LuaJit;
 
 import org.junit.jupiter.api.Test;
-import party.iroiro.luajava.luajit.LuaJit;
 
 import static party.iroiro.luajava.LuaTestSuite.assertThrowsLua;
 

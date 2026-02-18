@@ -1,14 +1,8 @@
 package party.iroiro.luajava.docs;
+import party.iroiro.luajava.luajit.LuaJit;
 
 import org.junit.jupiter.api.Test;
 import party.iroiro.luajava.Lua;
-import party.iroiro.luajava.lua51.Lua51;
-import party.iroiro.luajava.lua52.Lua52;
-import party.iroiro.luajava.lua53.Lua53;
-import party.iroiro.luajava.lua54.Lua54;
-import party.iroiro.luajava.lua55.Lua55;
-import party.iroiro.luajava.luaj.LuaJ;
-import party.iroiro.luajava.luajit.LuaJit;
 import party.iroiro.luajava.value.LuaValue;
 
 import java.util.ArrayList;
@@ -23,8 +17,7 @@ public class DebugExampleTest {
     @Test
     public void testJavaFunctionDebug() {
         for (Supplier<Lua> supplier : new Supplier[]{
-                Lua51::new, Lua52::new, Lua53::new, Lua54::new, Lua55::new,
-                LuaJ::new, LuaJit::new,
+                LuaJit::new,
         }) {
             try (Lua L = supplier.get()) {
                 L.openLibraries();
@@ -52,7 +45,7 @@ public class DebugExampleTest {
 
                 Object[] names = trace.stream().map(v -> v.get("name").toString()).toArray();
                 System.out.println(Arrays.toString(names));
-                int index = L instanceof LuaJ ? 1 : (L instanceof LuaJit ? 2 : 3);
+                int index = 2;
                 assertEquals("test_func", names[index]);
             }
         }
@@ -60,7 +53,7 @@ public class DebugExampleTest {
 
     @Test
     public void debugCountTest() {
-        try (Lua L = new Lua52()) {
+        try (Lua L = new LuaJit()) {
 // #region debugCountTest
 L.openLibraries();
 int[] count = new int[1];

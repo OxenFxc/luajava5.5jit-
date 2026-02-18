@@ -1,16 +1,10 @@
 package party.iroiro.luajava.threaded;
+import party.iroiro.luajava.luajit.LuaJit;
 
 import org.junit.jupiter.api.Test;
 import party.iroiro.luajava.JFunction;
 import party.iroiro.luajava.Lua;
 import party.iroiro.luajava.interfaces.LuaTestSupplier;
-import party.iroiro.luajava.lua51.Lua51;
-import party.iroiro.luajava.lua52.Lua52;
-import party.iroiro.luajava.lua53.Lua53;
-import party.iroiro.luajava.lua54.Lua54;
-import party.iroiro.luajava.lua55.Lua55;
-import party.iroiro.luajava.luaj.LuaJ;
-import party.iroiro.luajava.luajit.LuaJit;
 
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -25,13 +19,7 @@ public class ThreadedTests {
     public void threadedTests() throws InterruptedException {
         //noinspection rawtypes
         LuaTestSupplier[] constructors = new LuaTestSupplier[] {
-                Lua51::new,
-                Lua52::new,
-                Lua53::new,
-                Lua54::new,
-                Lua55::new,
                 LuaJit::new,
-                LuaJ::new,
         };
         //noinspection rawtypes
         for (LuaTestSupplier constructor : constructors) {

@@ -1,9 +1,8 @@
 package party.iroiro.luajava.docs;
+import party.iroiro.luajava.luajit.LuaJit;
 
 import org.junit.jupiter.api.Test;
 import party.iroiro.luajava.Lua;
-import party.iroiro.luajava.lua51.Lua51;
-import party.iroiro.luajava.lua54.Lua54;
 import party.iroiro.luajava.value.LuaValue;
 
 import java.math.BigDecimal;
@@ -15,7 +14,7 @@ public class JavaApiExampleTest {
     @Test
     public void luaValueTest() {
 // #region luaValueTest
-try (Lua L = new Lua54()) {
+try (Lua L = new LuaJit()) {
     LuaValue[] returnValues = L.eval("return { a = 1 }, 1024, 'my string value'");
     assertEquals(3, returnValues.length);
     assertEquals(1, returnValues[0].get("a").toInteger());
@@ -28,8 +27,8 @@ try (Lua L = new Lua54()) {
     @Test
     public void luaValueFromGlobalTest() {
 // #region luaValueFromGlobalTest
-try (Lua L = new Lua54()) {
-    assertEquals("Lua 5.4", L.get("_VERSION").toString());
+try (Lua L = new LuaJit()) {
+    assertEquals("Lua 5.1", L.get("_VERSION").toString());
 }
 // #endregion luaValueFromGlobalTest
     }
@@ -37,7 +36,7 @@ try (Lua L = new Lua54()) {
     @Test
     public void setGlobalTest() {
 // #region setGlobalTest
-try (Lua L = new Lua54()) {
+try (Lua L = new LuaJit()) {
     LuaValue value = L.from(1);
     L.set("a", value); // LuaValue
     L.set("b", 2); // Java Integer
@@ -53,7 +52,7 @@ try (Lua L = new Lua54()) {
     @Test
     public void luaValueEvalTest() {
 // #region luaValueEvalTest
-try (Lua L = new Lua54()) {
+try (Lua L = new LuaJit()) {
     L.openLibraries();
     LuaValue[] values1 = L.eval("string.sub('abcdefg', 0, 3)");
     assertEquals(0, values1.length);
@@ -66,7 +65,7 @@ try (Lua L = new Lua54()) {
     @Test
     public void luaValueTableTest() {
 // #region luaValueTableTest
-try (Lua L = new Lua54()) {
+try (Lua L = new LuaJit()) {
     L.run("t = { text = 'abc', children = { 'a', 'b', 'c' } }");
     LuaValue table = L.eval("return t")[0];
     // Get-calls return LuaValues.
@@ -86,7 +85,7 @@ try (Lua L = new Lua54()) {
     @Test
     public void luaValueCallTest() {
 // #region luaValueCallTest
-try (Lua L = new Lua54()) {
+try (Lua L = new LuaJit()) {
     L.openLibrary("string");
     LuaValue gsub = L.eval("return string.gsub")[0];
     LuaValue luaJava = gsub.call("Lua", "a", "aJava")[0];
@@ -98,7 +97,7 @@ try (Lua L = new Lua54()) {
     @Test
     public void luaValueProxyTest() throws InterruptedException {
 // #region luaValueProxyTest
-try (Lua L = new Lua54()) {
+try (Lua L = new LuaJit()) {
     LuaValue runnable = L.eval("return { run = function() print('running...') end }")[0];
     Runnable r = runnable.toProxy(Runnable.class);
     Thread t = new Thread(r);
@@ -112,12 +111,12 @@ try (Lua L = new Lua54()) {
     @Test
     public void closableTest() {
 // #region closableTest
-Lua L = new Lua51();
+Lua L = new LuaJit();
 // Operations
 L.close();
 
 // Or
-try (Lua J = new Lua51()) {
+try (Lua J = new LuaJit()) {
     // Operations
 }
 // #endregion closableTest
@@ -126,7 +125,7 @@ try (Lua J = new Lua51()) {
     @Test
     public void globalSetTest() {
 // #region globalSetTest
-try (Lua L = new Lua54()) {
+try (Lua L = new LuaJit()) {
     // Use LuaValue-based API
     L.set("myStr", "string value");
     L.run("assert(myStr == 'string value')");
@@ -141,7 +140,7 @@ try (Lua L = new Lua54()) {
     @Test
     public void globalGetTest() {
 // #region globalGetTest
-try (Lua L = new Lua54()) {
+try (Lua L = new LuaJit()) {
     L.run("a = 1024");
     // Use LuaValue-based API
     assertEquals(1024, L.get("a").toInteger());
@@ -155,7 +154,7 @@ try (Lua L = new Lua54()) {
     @Test
     public void getFieldTest() {
 // #region getFieldTest
-try (Lua L = new Lua54()) {
+try (Lua L = new LuaJit()) {
     L.run("return { a = 1 }"); // Pushes a table on stack
     L.getField(-1, "a");       // Retrieves the value
     assertEquals(1, L.toInteger(-1));
@@ -166,7 +165,7 @@ try (Lua L = new Lua54()) {
     @Test
     public void rawGetITest() {
 // #region rawGetITest
-try (Lua L = new Lua54()) {
+try (Lua L = new LuaJit()) {
     L.run("return { [20] = 1 }"); // Pushes a table on stack
     L.rawGetI(-1, 20);            // Retrieves the value
     assertEquals(1, L.toInteger(-1));
@@ -177,7 +176,7 @@ try (Lua L = new Lua54()) {
     @Test
     public void getTableTest() {
 // #region getTableTest
-try (Lua L = new Lua54()) {
+try (Lua L = new LuaJit()) {
     L.run("return { a = 1 }"); // Pushes a table on stack
     L.push("a");               // Pushes the key to look up
     L.getTable(-2);            // Retrieves the value
@@ -189,7 +188,7 @@ try (Lua L = new Lua54()) {
     @Test
     public void rawGetTest() {
 // #region rawGetTest
-try (Lua L = new Lua54()) {
+try (Lua L = new LuaJit()) {
     L.run("return { a = 1 }"); // Pushes a table on stack
     L.push("a");               // Pushes the key to look up
     L.rawGet(-2);              // Retrieves the value
@@ -201,7 +200,7 @@ try (Lua L = new Lua54()) {
     @Test
     public void setFieldTest() {
 // #region setFieldTest
-try (Lua L = new Lua54()) {
+try (Lua L = new LuaJit()) {
     L.run("return { a = 1 }"); // Pushes a table on stack
     L.push(2);                 // Pushes the new value
     L.setField(-2, "a");       // Updates the value
@@ -212,7 +211,7 @@ try (Lua L = new Lua54()) {
     @Test
     public void rawSetITest() {
 // #region rawSetITest
-try (Lua L = new Lua54()) {
+try (Lua L = new LuaJit()) {
     L.run("return { [20] = 1 }"); // Pushes a table on stack
     L.push(2);                    // Pushes the new value
     L.rawSetI(-2, 20);            // Updates the value
@@ -223,7 +222,7 @@ try (Lua L = new Lua54()) {
     @Test
     public void setTableTest() {
 // #region setTableTest
-try (Lua L = new Lua54()) {
+try (Lua L = new LuaJit()) {
     L.run("return { a = 1 }"); // Pushes a table on stack
     L.push("a");               // Pushes the key
     L.push(2);                 // Pushes the new value
@@ -235,7 +234,7 @@ try (Lua L = new Lua54()) {
     @Test
     public void rawSetTest() {
 // #region rawSetTest
-try (Lua L = new Lua54()) {
+try (Lua L = new LuaJit()) {
     L.run("return { a = 1 }"); // Pushes a table on stack
     L.push("a");               // Pushes the key
     L.push(2);                 // Pushes the new value
@@ -246,7 +245,7 @@ try (Lua L = new Lua54()) {
 
     @SuppressWarnings("SameParameterValue")
     private ByteBuffer readFromFile(String ignored) {
-try (Lua L = new Lua54()) {
+try (Lua L = new LuaJit()) {
     L.load("return 0");
     return L.dump();
 }
@@ -255,7 +254,7 @@ try (Lua L = new Lua54()) {
     @Test
     public void luaDumpTest() {
 // #region luaDumpTest
-try (Lua L = new Lua54()) {
+try (Lua L = new LuaJit()) {
     ByteBuffer code = readFromFile("MyScript.lua");
     // L.load(...) pushes on stack a precompiled function
     L.load(code, "MyScript.lua");
@@ -269,7 +268,7 @@ try (Lua L = new Lua54()) {
     @Test
     public void stringDumpTest() {
 // #region stringDumpTest
-try (Lua L = new Lua54()) {
+try (Lua L = new LuaJit()) {
     L.openLibrary("string");
     // string.dump(...) returns the precompiled binary as a Lua string
     L.run("return string.dump(function(a, b) return a + b end)");

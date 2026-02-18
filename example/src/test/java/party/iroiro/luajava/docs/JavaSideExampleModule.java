@@ -1,4 +1,5 @@
 package party.iroiro.luajava.docs;
+import party.iroiro.luajava.luajit.LuaJit;
 
 import party.iroiro.luajava.Lua;
 
