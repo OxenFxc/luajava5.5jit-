@@ -24,7 +24,7 @@ class LuaScriptEngineTest {
     public void scriptEngineFactoryTest() {
         ScriptEngineManager manager = new ScriptEngineManager();
         assertInstanceOf(LuaScriptEngine.class, manager.getEngineByExtension("lua"));
-        assertInstanceOf(LuaScriptEngine.class, manager.getEngineByName("lua54"));
+        assertInstanceOf(LuaScriptEngine.class, manager.getEngineByName("luajit"));
         assertInstanceOf(LuaScriptEngine.class, manager.getEngineByMimeType("text/x-lua"));
         assertInstanceOf(LuaScriptEngine.class, manager.getEngineByExtension("lua"));
     }

@@ -48,23 +48,23 @@ class LuaScriptEngineFactoryTest {
     @Test
     public void paramTest() {
         LuaScriptEngineFactory factory = new LuaScriptEngineFactory();
-        assertEquals("Lua 5.4", factory.getEngineName());
-        assertEquals("5.4.8", factory.getEngineVersion());
+        assertEquals("LuaJIT", factory.getEngineName());
+        assertEquals("7152e15489d2077cd299ee23e3d51a4c599ab14f", factory.getEngineVersion());
         assertIterableEquals(Collections.singletonList("lua"), factory.getExtensions());
         List<String> mimeTypes = new ArrayList<>();
         mimeTypes.add("text/x-lua");
         mimeTypes.add("application/x-lua");
         assertIterableEquals(mimeTypes, factory.getMimeTypes());
-        assertIterableEquals(Collections.singletonList("lua54"), factory.getNames());
+        assertIterableEquals(Collections.singletonList("luajit"), factory.getNames());
         assertEquals("Lua", factory.getLanguageName());
-        assertEquals("5.4.8", factory.getLanguageVersion());
+        assertEquals("7152e15489d2077cd299ee23e3d51a4c599ab14f", factory.getLanguageVersion());
 
         String[][] params = {
-                {"ENGINE", "Lua 5.4"},
-                {"ENGINE_VERSION", "5.4.8"},
+                {"ENGINE", "LuaJIT"},
+                {"ENGINE_VERSION", "7152e15489d2077cd299ee23e3d51a4c599ab14f"},
                 {"LANGUAGE", "Lua"},
-                {"LANGUAGE_VERSION", "5.4.8"},
-                {"NAME", "lua54"},
+                {"LANGUAGE_VERSION", "7152e15489d2077cd299ee23e3d51a4c599ab14f"},
+                {"NAME", "luajit"},
                 {"THREADING", "THREAD-ISOLATED"},
                 {"NONSENSE", null},
         };
