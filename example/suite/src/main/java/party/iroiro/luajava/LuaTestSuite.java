@@ -529,24 +529,28 @@ public class LuaTestSuite<T extends AbstractLua> {
         // Roundtrips are fine
         for (String s : new String[]{"abc ←→", "中文", "🀄"}) {
             L.push(s);
-            assertEquals(s, L.toString(-1));
+            String actual = L.toString(-1);
+            System.out.println("expected: " + s + ", got: " + actual);
+            assertEquals(s, actual);
 
             byte[] expected = s.getBytes(StandardCharsets.UTF_8);
             L.push(ByteBuffer.wrap(expected));
             ByteBuffer buffer = L.toBuffer(-1);
             assertNotNull(buffer);
-            byte[] actual = new byte[buffer.remaining()];
-            buffer.get(actual);
-            assertArrayEquals(expected, actual);
+            byte[] actualBytes = new byte[buffer.remaining()];
+            buffer.get(actualBytes);
+            assertArrayEquals(expected, actualBytes);
 
             L.pop(2);
         }
         // Java uses modified UTF-8 coding...
         L.push(ByteBuffer.wrap("🀄".getBytes(StandardCharsets.UTF_8)));
+        // Always print the actual output
+        String actualEmoji = L.toString(-1);
+        System.out.println("expected: 🀄, got: " + actualEmoji);
         if (!LuaScriptSuite.isAndroid()) {
             // This crashes Android API 21, but works for Android API >= 25 from my tests.
-            System.out.println("expected: 🀄, got: " + L.toString(-1));
-            assertNotEquals("🀄", L.toString(-1));
+            assertNotEquals("🀄", actualEmoji);
         }
         L.pop(1);
         // Surprise: LuaJ has some round-trip costs and converts also into
