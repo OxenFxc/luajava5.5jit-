@@ -59,6 +59,15 @@ String addLuaJitTarget(Platform platform, List<String> command) {
     tasks.register(target) {
         if (command.get(0) == 'make') {
             doLast {
+                File dascFile = file('jni/luajit/src/vm_x86.dasc')
+                if (dascFile.exists()) {
+                    String content = dascFile.text
+                    if (!content.contains('lj_func_newtbc@8')) {
+                        content = content.replace('call extern lj_func_newtbc', 'call extern lj_func_newtbc@8')
+                        dascFile.text = content
+                        logger.lifecycle("Patched vm_x86.dasc")
+                    }
+                }
                 exec {
                     workingDir 'jni/luajit'
                     commandLine 'make', 'clean'
