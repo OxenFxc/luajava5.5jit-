@@ -21,11 +21,9 @@ Most of the code lies in the following directories:
 
 - **`luajava/`** : Most of the Java code.
 
-- **`lua51/`, `lua52/`, `lua53/`, `lua54/`, `luajit/`** : Lua version specific code (both JNI and Java code).
+- **`luajit-lua5.5/`** : LuaJIT with Lua 5.5 features specific code (both JNI and Java code).
 
-  - **`lua<version>/jni/lua<version>/`** : A git sub-module to the Lua source code repository.
-  - **`lua<version>/jni/`** : Lua specific JNI code.
-    (For example, `luaL_setmetatable` is not available in Lua 5.1, for which we manually implemented one.)
+  - **`luajit-lua5.5/jni/luajit/`** : A git sub-module to the Lua source code repository.
 
 - **`jsr223/`** : An implementation of JSR 223.
 
@@ -60,15 +58,14 @@ This repository uses [`jnigen`](https://github.com/libgdx/gdx-jnigen) to build J
 
     - Methods in the `JuaAPI` class are mostly used from the JNI C++ side.
 
-  - In `lua<version>/`, each artifact of a Lua version provides an implementation of `LuaNative`
+  - In `luajit-lua5.5/`, the artifact provides an implementation of `LuaNative`
     mostly by directly wrapping the corresponding Lua C API.
 
-    The boilerplate JNI code is written right in the corresponding Java file
-    (e.g., [`Lua51Natives.java`](./lua51/src/main/java/party/iroiro/luajava/lua51/Lua51Natives.java)),
+    The boilerplate JNI code is written right in the corresponding Java file,
     from which `jnigen` will extract the C code and generate a real C++ file used for compilation.
 
   - The `LuaNative` class contains the Lua C API common to all Lua versions.
-    (Some are not, but they are manually implemented in `lua<version>/jni/mod/` instead.)
+    (Some are not, but they are manually implemented in `jni/mod/` instead.)
 
 - JNI C++ side:
 
@@ -82,13 +79,13 @@ This repository uses [`jnigen`](https://github.com/libgdx/gdx-jnigen) to build J
 
 This section aims to walk you through the process needed to set the developing environment up.
 
-You may also refer to the [GitHub building workflow](./.github/workflows/build-natives.yml)
+You may also refer to the [GitHub building workflow](./.github/workflows/build.yml)
 for detailed instructions specific to GitHub workflow environments.
 
 ### Dependencies
 
 This project cross-compiles Lua, which means it has quite a lot of dependencies (mostly compilation toolchains).
-For a complete workflow to compile for all the platforms supported, see [build-natives.yml](./.github/workflows/build-natives.yml).
+For a complete workflow to compile for all the platforms supported, see [build.yml](./.github/workflows/build.yml).
 
 However, for development purposes, usually compiling for the current platform is enough,
 and one does not need to install all the toolchains. Here we demonstrate how to set things up on Linux.
@@ -106,7 +103,7 @@ You will need to install at least the following:
 
   Symbol versioning in Glibc prevents the binaries from working between different Glibc versions,
   making some tricks necessary for LuaJIT cross-compilation.
-  Here, we use `patchelf` to remove the versioning info altogether (see [`build.gradle`](./luajit/build.gradle)).
+  Here, we use `patchelf` to remove the versioning info altogether (see [`build.gradle`](./luajit-lua5.5/build.gradle)).
 
   However, the `--clear-symbol-verson` option in `patchelf` leaves the `.gnu.version_r` section behind,
   which still causes our symbol versioning problem. A PR has long been open but seems stale now.
@@ -135,13 +132,6 @@ However, to run the tests, try `./gradlew :example:test` or start tests in the l
 
 ## Coding Caveats
 
-### Java 8 Feature Usages
+### Java 21
 
-The major obstacle against using Java 8 features in the codebase is Android compatibility.
-Theoretically, however, with Java 8 desugaring in Android SDK,
-one can use such features as default methods in interfaces or lambda functions.
-But requiring the user to set up desugaring only to use this library is just too much.  
-Therefore, for now:
-- We just disallow using any Java 8 features in the codebase.
-- For tests, since we have control over the testing environment (and build config),
-  using Java 8 lambdas, default functions, etc. are acceptable to some degree.
+The project now uses Java 21 toolchains.
