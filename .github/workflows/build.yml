@@ -35,7 +35,7 @@ jobs:
         uses: gradle/actions/setup-gradle@v3
       - name: Patch LuaJIT amalg
         run: |
-          sed -i '/#include "lib_init.c"/i #include "lib_utf8.c"' luajit-lua5.5/jni/luajit/src/ljamalg.c
+          sed -i.bak '/#include "lib_init.c"/i #include "lib_utf8.c"' luajit-lua5.5/jni/luajit/src/ljamalg.c && rm -f luajit-lua5.5/jni/luajit/src/ljamalg.c.bak
       - name: Build natives
         run: |
           ./gradlew jnigen jnigenBuildAllMacOsX jnigenBuildAllIOS
@@ -106,7 +106,7 @@ jobs:
         uses: gradle/actions/setup-gradle@v3
       - name: Patch LuaJIT amalg
         run: |
-          sed -i '/#include "lib_init.c"/i #include "lib_utf8.c"' luajit-lua5.5/jni/luajit/src/ljamalg.c
+          sed -i.bak '/#include "lib_init.c"/i #include "lib_utf8.c"' luajit-lua5.5/jni/luajit/src/ljamalg.c && rm -f luajit-lua5.5/jni/luajit/src/ljamalg.c.bak
       - name: Build natives
         run: |
           export NDK_HOME=$ANDROID_NDK_LATEST_HOME
@@ -154,7 +154,7 @@ jobs:
         uses: gradle/actions/setup-gradle@v3
       - name: Patch LuaJIT amalg
         run: |
-          sed -i '/#include "lib_init.c"/i #include "lib_utf8.c"' luajit-lua5.5/jni/luajit/src/ljamalg.c
+          sed -i.bak '/#include "lib_init.c"/i #include "lib_utf8.c"' luajit-lua5.5/jni/luajit/src/ljamalg.c && rm -f luajit-lua5.5/jni/luajit/src/ljamalg.c.bak
       - name: Download most-natives artifact
         uses: actions/download-artifact@v4
         with:
@@ -192,7 +192,7 @@ jobs:
       - name: Patch LuaJIT amalg
         shell: bash
         run: |
-          sed -i '/#include "lib_init.c"/i #include "lib_utf8.c"' luajit-lua5.5/jni/luajit/src/ljamalg.c
+          sed -i.bak '/#include "lib_init.c"/i #include "lib_utf8.c"' luajit-lua5.5/jni/luajit/src/ljamalg.c && rm -f luajit-lua5.5/jni/luajit/src/ljamalg.c.bak
       - name: Download most-natives artifact
         uses: actions/download-artifact@v4
         with:
@@ -230,7 +230,7 @@ jobs:
         uses: gradle/actions/setup-gradle@v3
       - name: Patch LuaJIT amalg
         run: |
-          sed -i '/#include "lib_init.c"/i #include "lib_utf8.c"' luajit-lua5.5/jni/luajit/src/ljamalg.c
+          sed -i.bak '/#include "lib_init.c"/i #include "lib_utf8.c"' luajit-lua5.5/jni/luajit/src/ljamalg.c && rm -f luajit-lua5.5/jni/luajit/src/ljamalg.c.bak
       - name: Download most-natives artifact
         uses: actions/download-artifact@v4
         with:
@@ -296,7 +296,7 @@ jobs:
         uses: gradle/actions/setup-gradle@v3
       - name: Patch LuaJIT amalg
         run: |
-          sed -i '/#include "lib_init.c"/i #include "lib_utf8.c"' luajit-lua5.5/jni/luajit/src/ljamalg.c
+          sed -i.bak '/#include "lib_init.c"/i #include "lib_utf8.c"' luajit-lua5.5/jni/luajit/src/ljamalg.c && rm -f luajit-lua5.5/jni/luajit/src/ljamalg.c.bak
       - name: Download apple-natives artifact
         uses: actions/download-artifact@v4
         with:
@@ -385,7 +385,7 @@ jobs:
         uses: gradle/actions/setup-gradle@v3
       - name: Patch LuaJIT amalg
         run: |
-          sed -i '/#include "lib_init.c"/i #include "lib_utf8.c"' luajit-lua5.5/jni/luajit/src/ljamalg.c
+          sed -i.bak '/#include "lib_init.c"/i #include "lib_utf8.c"' luajit-lua5.5/jni/luajit/src/ljamalg.c && rm -f luajit-lua5.5/jni/luajit/src/ljamalg.c.bak
       - name: Download most-natives artifact
         uses: actions/download-artifact@v4
         with:
