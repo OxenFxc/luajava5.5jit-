@@ -25,9 +25,9 @@ myProxyInstance = Proxy:newProxyInstance(
 )
 assertThrows('No a LuaProxy backed object', java.unwrap, myProxyInstance)
 
-Lua54 = java.import('party.iroiro.luajava.lua54.Lua54')
+LuaJit = java.import('party.iroiro.luajava.luajit.LuaJit')
 Lua = java.import('party.iroiro.luajava.Lua')
-L = Lua54()
+L = LuaJit()
 L:createTable(0, 0)
 p = L:createProxy(interfaces, Lua.Conversion.SEMI)
 assertThrows('Proxied table is on different states', java.unwrap, p)
