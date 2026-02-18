@@ -28,7 +28,7 @@ try (Lua L = new LuaJit()) {
     public void luaValueFromGlobalTest() {
 // #region luaValueFromGlobalTest
 try (Lua L = new LuaJit()) {
-    assertEquals("Lua 5.1", L.get("_VERSION").toString());
+    assertEquals("Lua 5.5", L.get("_VERSION").toString());
 }
 // #endregion luaValueFromGlobalTest
     }

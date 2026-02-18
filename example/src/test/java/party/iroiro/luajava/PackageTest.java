@@ -20,7 +20,7 @@ public class PackageTest {
     private void packageRequireTest(String name) {
         String s = "local r = require(\"" + name + "\")";
         try (Lua L = new LuaJit()) {
-            assertThrowsLua(L, s, LuaException.LuaError.RUNTIME, "attempt to call global 'require'");
+            assertThrowsLua(L, s, LuaException.LuaError.RUNTIME, "attempt to call field 'require'");
         }
         if (!name.equals("package")) {
             try (Lua L = new LuaJit()) {
