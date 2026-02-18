@@ -1,9 +1,9 @@
 # LuaJava #
 
-[![Build Status](https://github.com/gudzpoz/luajava/actions/workflows/build-natives.yml/badge.svg)](https://github.com/gudzpoz/luajava/actions/workflows/build-natives.yml)
+[![Build Status](https://github.com/gudzpoz/luajava/actions/workflows/build.yml/badge.svg)](https://github.com/gudzpoz/luajava/actions/workflows/build.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Codecov](https://img.shields.io/codecov/c/github/gudzpoz/luajava?label=Coverage)](https://app.codecov.io/gh/gudzpoz/luajava/)
-[![Java 8](https://img.shields.io/badge/Java-8-brown)](https://www.oracle.com/java/technologies/java8.html)
+[![Java 21](https://img.shields.io/badge/Java-21-brown)](https://www.oracle.com/java/technologies/downloads/#java21)
 [![Maven Central](https://img.shields.io/maven-central/v/party.iroiro.luajava/luajava?color=blue&label=Maven%20Central)](https://mvnrepository.com/search?q=party.iroiro.luajava)
 
 [![Build Status](https://github.com/gudzpoz/luajava/actions/workflows/docs.yml/badge.svg)](https://github.com/gudzpoz/luajava/actions/workflows/docs.yml)
@@ -37,31 +37,20 @@ since this library is more or less just a thin wrapper and requires some basic u
 
 ## Platforms and Versions ##
 
-<div style="display:flex;justify-content:center">
-
-| Lua 5.1 | Lua 5.2 | Lua 5.3 | Lua 5.4 | Lua 5.5 | LuaJIT      | LuaJ        |
-|:-------:|:-------:|:-------:|:-------:|:--------|:-----------:|:-----------:|
-| 5.1.5   | 5.2.4   | 5.3.6   | 5.4.8   | 5.5.0   | [`7152e15`] | [LuaJ fork] |
-
-</div>
-
-[`7152e15`]: https://github.com/LuaJIT/LuaJIT/commits/7152e15489d2077cd299ee23e3d51a4c599ab14f
-
-[LuaJ fork]: https://github.com/wagyourtail/luaj
+This project exclusively supports a custom LuaJIT fork with Lua 5.5 features.
 
 Supported platforms: **Windows**, **Linux**, **MacOS** and **Android**. Compiled against both ARM and x32/x64. Binaries are not yet tested for iOS.
 
-Compiled natives are available for most common platforms. Check out [LuaJava Platforms](https://luajava.iroiro.party/#platforms) for a platform matrix. LuaJ bindings do not need native binaries and should run on all platforms theoretically.
+Compiled natives are available for most common platforms. Check out [LuaJava Platforms](https://luajava.iroiro.party/#platforms) for a platform matrix.
 
 ### Artifacts
 
 To include LuaJava into your project, you need to include two artifacts, one for the Java bindings, the other for the compiled native binaries.
-(For LuaJ bindings, you don't need the latter one. However, you will need to add [JitPack](https://jitpack.io/) to your repositories.)
 
 ```groovy
 // Example: LuaJIT with Desktop natives
-implementation 'party.iroiro.luajava:luajit:4.1.0'
-runtimeOnly 'party.iroiro.luajava:luajit-platform:4.1.0:natives-desktop'
+implementation 'party.iroiro.luajava:luajit-lua5.5:4.1.0'
+runtimeOnly 'party.iroiro.luajava:luajit-lua5.5:4.1.0:natives-desktop'
 ```
 
 Different artifacts are provided for different Lua versions and different platforms. Check out [Getting Started](https://luajava.iroiro.party/getting-started.html) for an overview. Or you may also search in the [Maven Central](https://mvnrepository.com/search?q=party.iroiro.luajava).
@@ -91,7 +80,7 @@ and then print it using the Java `println`.
 
 ```java
 public static void main(String[] args) {
-    try (Lua L = new Lua51()) {
+    try (Lua L = new LuaJit()) {
         L.set("message", "Hello World from LuaJava");
         L.run("java.import('java.lang.System').out:println(message)");
     }
