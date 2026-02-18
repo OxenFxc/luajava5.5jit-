@@ -3172,10 +3172,10 @@ public class LuaJitNatives implements LuaNatives {
      * @param tname type name
      * @return see description
      */
-    public native int luaL_typeerror(long ptr, int narg, String tname); /*
+    public native int luaL_typerror(long ptr, int narg, String tname); /*
         lua_State * L = (lua_State *) ptr;
 
-        jint returnValueReceiver = (jint) luaL_typeerror((lua_State *) L, (int) narg, (const char *) tname);
+        jint returnValueReceiver = (jint) luaL_typerror((lua_State *) L, (int) narg, (const char *) tname);
         return returnValueReceiver;
     */
 
