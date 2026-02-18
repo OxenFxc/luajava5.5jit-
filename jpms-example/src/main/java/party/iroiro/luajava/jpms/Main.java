@@ -1,11 +1,6 @@
 package party.iroiro.luajava.jpms;
 
 import party.iroiro.luajava.Lua;
-import party.iroiro.luajava.lua51.Lua51;
-import party.iroiro.luajava.lua52.Lua52;
-import party.iroiro.luajava.lua53.Lua53;
-import party.iroiro.luajava.lua54.Lua54;
-import party.iroiro.luajava.luaj.LuaJ;
 import party.iroiro.luajava.luajit.LuaJit;
 
 public class Main implements AutoCloseable {
@@ -20,12 +15,7 @@ public class Main implements AutoCloseable {
     private Main() {
         //noinspection resource
         luas = new Lua[] {
-                new Lua51(),
-                new Lua52(),
-                new Lua53(),
-                new Lua54(),
                 new LuaJit(),
-                new LuaJ(),
         };
     }
 
@@ -36,8 +26,6 @@ public class Main implements AutoCloseable {
             L.run("s = 'Hello World: ' .. _VERSION; assert(String(s):toString() == s)");
             // Accessing explicitly modulized classes
             L.run("c = 'party.iroiro.luajava.jpms.Main'; assert(java.import(c).class:getName() == c)");
-            // Accessing implicit modules
-            L.run("c = 'party.iroiro.luajava.lua51.Lua51'; assert(java.import(c).class:getName() == c)");
         }
     }
 
