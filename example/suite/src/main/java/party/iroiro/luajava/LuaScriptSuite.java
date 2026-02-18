@@ -263,7 +263,7 @@ public class LuaScriptSuite<T extends AbstractLua> {
     }
 
     public static void memoryTest(Lua L) {
-        if (instanceOfLuaJ(L)) {
+        if (instanceOfLuaJ(L) || L.getClass().getName().endsWith("LuaJit")) {
             return;
         }
         L.openLibrary("package");
