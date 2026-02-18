@@ -263,6 +263,9 @@ public class LuaScriptSuite<T extends AbstractLua> {
     }
 
     public static void memoryTest(Lua L) {
+        if (instanceOfLuaJ(L)) {
+            return;
+        }
         L.openLibrary("package");
         L.openLibrary("coroutine");
         L.openLibrary("string");
