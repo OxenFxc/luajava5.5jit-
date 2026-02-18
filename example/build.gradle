@@ -24,27 +24,12 @@ java {
 
 dependencies {
     jmh project(':luajava')
-    jmh project(':luaj')
-    jmh project(':lua54')
-    jmh project(':luajit')
-    jmh project(path: ':lua54', configuration: 'desktopNatives')
-    jmh project(path: ':luajit', configuration: 'desktopNatives')
+    jmh project(':luajit-lua5.5')
+    jmh project(path: ':luajit-lua5.5', configuration: 'desktopNatives')
     implementation project(':luajava')
-    implementation project(':lua51')
-    implementation project(':lua52')
-    implementation project(':lua53')
-    implementation project(':lua54')
-    implementation project(':lua55')
-    implementation project(':luajit')
-    implementation project(':luaj')
-    implementation 'com.github.wagyourtail.luaj:luaj-core:f062b53a34'
+    implementation project(':luajit-lua5.5')
     implementation project(':example:suite')
-    implementation project(path: ':lua51', configuration: 'desktopNatives')
-    implementation project(path: ':lua52', configuration: 'desktopNatives')
-    implementation project(path: ':lua53', configuration: 'desktopNatives')
-    implementation project(path: ':lua54', configuration: 'desktopNatives')
-    implementation project(path: ':lua55', configuration: 'desktopNatives')
-    implementation project(path: ':luajit', configuration: 'desktopNatives')
+    implementation project(path: ':luajit-lua5.5', configuration: 'desktopNatives')
     implementation 'info.picocli:picocli:4.7.6'
     implementation 'org.antlr:antlr4-runtime:4.13.0'
     implementation "org.jline:jline-reader:$jlineVersion"

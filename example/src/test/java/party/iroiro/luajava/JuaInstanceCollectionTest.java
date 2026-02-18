@@ -1,8 +1,8 @@
 package party.iroiro.luajava;
+import party.iroiro.luajava.luajit.LuaJit;
 
 import org.jspecify.annotations.NonNull;
 import org.junit.jupiter.api.Test;
-import party.iroiro.luajava.luaj.LuaJ;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class JuaInstanceCollectionTest {
     @Test
     public void juaInstanceCollectionTest() {
-        Lua L = new LuaJ();
+        Lua L = new LuaJit();
         LuaInstances<@NonNull Lua> instances = new LuaInstances<>();
         for (int i = 0; i < 10; i++) {
             assertEquals(i, instances.add(L));

@@ -1,7 +1,7 @@
 package party.iroiro.luajava;
+import party.iroiro.luajava.luajit.LuaJit;
 
 import org.junit.jupiter.api.Test;
-import party.iroiro.luajava.lua51.Lua51;
 import party.iroiro.luajava.value.LuaValue;
 
 import java.math.BigInteger;
@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class FromTest {
     @Test
     public void fromTest() {
-        try (Lua L = new Lua51()) {
+        try (Lua L = new LuaJit()) {
             L.push(1);
             assertNull(L.toList(-1));
             assertNull(L.toMap(-1));

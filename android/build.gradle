@@ -12,7 +12,7 @@ group = rootProject.group
 version = rootProject.version
 
 ext {
-    luaVersions = ['lua51', 'lua52', 'lua53', 'lua54', 'lua55', 'luajit']
+    luaVersions = ['luajit-lua5.5']
 }
 
 android {
@@ -29,8 +29,9 @@ android {
     sourceSets { container ->
         luaVersions.each { v ->
             String ver = v
-            container.create(ver) {
-                namespace = "${project(':').group}.${ver}"
+            String flavorName = ver.replaceAll("[^a-zA-Z0-9_]", "_")
+            container.create(flavorName) {
+                namespace = "${project(':').group}.${flavorName}"
                 manifest.srcFile 'AndroidManifest.xml'
                 jniLibs.srcDirs = ["${ver}-libs"]
             }
@@ -42,7 +43,8 @@ android {
     productFlavors { container ->
         luaVersions.each { ver ->
             String v = ver
-            container.create(v) {
+            String flavorName = ver.replaceAll("[^a-zA-Z0-9_]", "_")
+            container.create(flavorName) {
                 dimension 'lua'
             }
         }
@@ -101,7 +103,8 @@ afterEvaluate {
                 setPom(pom, '')
                 luaVersions.each { v ->
                     String ver = v
-                    String path = "${buildDir}/outputs/aar/android-${ver}-release.aar"
+                    String flavorName = ver.replaceAll("[^a-zA-Z0-9_]", "_")
+                    String path = "${buildDir}/outputs/aar/android-${flavorName}-release.aar"
                     file(path).getParentFile().mkdirs()
                     file(path).createNewFile()
                     container.artifact(path) {

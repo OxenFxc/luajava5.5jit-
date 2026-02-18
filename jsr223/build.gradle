@@ -15,26 +15,17 @@ ext {
     jUnitVersion = '5.10.2'
 }
 
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
 dependencies {
     api project(':luajava')
-    compileOnly project(':lua51')
-    compileOnly project(':lua52')
-    compileOnly project(':lua53')
-    compileOnly project(':lua54')
-    compileOnly project(':lua55')
-    compileOnly project(':luajit')
-    testImplementation project(':lua51')
-    testImplementation project(':lua52')
-    testImplementation project(':lua53')
-    testImplementation project(':lua54')
-    testImplementation project(':lua55')
-    testImplementation project(':luajit')
-    testImplementation project(path: ':lua51', configuration: 'desktopNatives')
-    testImplementation project(path: ':lua52', configuration: 'desktopNatives')
-    testImplementation project(path: ':lua53', configuration: 'desktopNatives')
-    testImplementation project(path: ':lua54', configuration: 'desktopNatives')
-    testImplementation project(path: ':lua55', configuration: 'desktopNatives')
-    testImplementation project(path: ':luajit', configuration: 'desktopNatives')
+    compileOnly project(':luajit-lua5.5')
+    testImplementation project(':luajit-lua5.5')
+    testImplementation project(path: ':luajit-lua5.5', configuration: 'desktopNatives')
     testImplementation "org.junit.jupiter:junit-jupiter-api:$jUnitVersion"
     testImplementation "org.junit.jupiter:junit-jupiter-params:$jUnitVersion"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$jUnitVersion"

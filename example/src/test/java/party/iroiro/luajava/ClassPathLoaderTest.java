@@ -1,13 +1,7 @@
 package party.iroiro.luajava;
+import party.iroiro.luajava.luajit.LuaJit;
 
 import org.junit.jupiter.api.Test;
-import party.iroiro.luajava.lua51.Lua51;
-import party.iroiro.luajava.lua52.Lua52;
-import party.iroiro.luajava.lua53.Lua53;
-import party.iroiro.luajava.lua54.Lua54;
-import party.iroiro.luajava.lua55.Lua55;
-import party.iroiro.luajava.luaj.LuaJ;
-import party.iroiro.luajava.luajit.LuaJit;
 
 import java.io.IOException;
 import java.nio.Buffer;
@@ -22,13 +16,7 @@ public class ClassPathLoaderTest {
     public void classPathLoaderTest() {
         ClassPathLoader loader = new ClassPathLoader();
         ArrayList<Lua> luas = new ArrayList<>(Arrays.asList(
-                new Lua51(),
-                new Lua52(),
-                new Lua53(),
-                new Lua54(),
-                new Lua55(),
-                new LuaJit(),
-                new LuaJ()
+                new LuaJit()
         ));
         for (Lua L : luas) {
             assertNull(loader.load("a.module.nowhere.to.be.found", L));

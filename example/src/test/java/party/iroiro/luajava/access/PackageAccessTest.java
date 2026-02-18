@@ -1,8 +1,8 @@
 package party.iroiro.luajava.access;
+import party.iroiro.luajava.luajit.LuaJit;
 
 import org.junit.jupiter.api.Test;
 import party.iroiro.luajava.Lua;
-import party.iroiro.luajava.lua51.Lua51;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -20,7 +20,7 @@ public class PackageAccessTest {
 
     @Test
     void testNonPublicAccess() {
-        try (Lua L = new Lua51()) {
+        try (Lua L = new LuaJit()) {
             L.openLibraries();
             L.set("test", new TestClass());
             assertEquals(42, L.eval("return test:test()")[0].toInteger());

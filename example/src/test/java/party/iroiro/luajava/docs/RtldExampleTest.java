@@ -1,16 +1,16 @@
 package party.iroiro.luajava.docs;
+import party.iroiro.luajava.luajit.LuaJit;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import party.iroiro.luajava.Lua;
-import party.iroiro.luajava.lua54.Lua54;
 
 public class RtldExampleTest {
     @Disabled
     @Test
     public void loadAsGlobalTest() {
 // #region loadAsGlobalTest
-try (Lua L = new Lua54()) {
+try (Lua L = new LuaJit()) {
     L.getLuaNatives().loadAsGlobal();
     L.run("require('lfs')");
 }

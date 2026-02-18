@@ -1,13 +1,9 @@
 package party.iroiro.luajava.docs;
+import party.iroiro.luajava.luajit.LuaJit;
 
 import org.junit.jupiter.api.Test;
 import party.iroiro.luajava.ClassPathLoader;
 import party.iroiro.luajava.Lua;
-import party.iroiro.luajava.lua51.Lua51;
-import party.iroiro.luajava.lua52.Lua52;
-import party.iroiro.luajava.lua54.Lua54;
-import party.iroiro.luajava.luaj.LuaJ;
-import party.iroiro.luajava.luajit.LuaJit;
 
 import java.util.ArrayList;
 import java.util.function.Supplier;
@@ -34,12 +30,7 @@ public class LuaCodeExampleTest {
     @Test
     public void testLuaCode() {
         ArrayList<Supplier<Lua>> lua = new ArrayList<>();
-        lua.add(Lua51::new);
-        lua.add(Lua52::new);
-        lua.add(Lua52::new);
-        lua.add(Lua54::new);
         lua.add(LuaJit::new);
-        lua.add(LuaJ::new);
         for (String file : TEST_FILES) {
             if (file.endsWith("Disabled")) {
                 continue;
@@ -47,9 +38,8 @@ public class LuaCodeExampleTest {
             for (Supplier<Lua> supplier : lua) {
                 try (Lua L = supplier.get()) {
                     if (file.equals("conversions64BitExample")) {
-                        if (!(L instanceof Lua54)) {
-                            continue;
-                        }
+                        // Skip 64-bit conversion tests as LuaJit uses doubles or has different behavior
+                        continue;
                     }
                     L.openLibraries();
                     L.setExternalLoader(new ClassPathLoader());
