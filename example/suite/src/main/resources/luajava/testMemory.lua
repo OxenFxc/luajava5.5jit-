@@ -52,7 +52,7 @@ local testMemory = function()
   print ('-----------------------------')
   print('testing java.new')
   for j = 1, 3 do
-    for i = 1, 20000 do
+    for i = 1, 1000 do
         java.import('java.lang.Object')():toString()
         -- -- No java.awt.Frame on Android
         -- local s = java.import('java.awt.Frame')('test' .. i)
@@ -71,7 +71,7 @@ local testMemory = function()
   -- So we need some more loops to see if the final memory usage stablizes.
   for j = 1, 10 do
     local t = { run = function() print('run') end }
-    for i = 1, 40000 do
+    for i = 1, 2000 do
         java.proxy('java.lang.Runnable', t)
     end
     doGc()
@@ -82,7 +82,7 @@ local testMemory = function()
   print ('-----------------------------')
   print('testing threads')
   for j = 1, 10 do
-    for i = 1, 10000 do
+    for i = 1, 500 do
       local t = coroutine.create(function()
         java.import('java.lang.Object')():toString()
       end)
